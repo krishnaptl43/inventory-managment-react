@@ -40,7 +40,7 @@ const Login = () => {
 
     try {
       const result = await login(formData.email, formData.password)
-      
+
       if (result.success) {
         navigate(from, { replace: true })
       } else {
@@ -51,15 +51,6 @@ const Login = () => {
     } finally {
       setLoading(false)
     }
-  }
-
-  const handleDemoLogin = (role) => {
-    const demoCredentials = {
-      admin: { email: 'admin@inventory.com', password: 'password' },
-      user: { email: 'user@inventory.com', password: 'password' }
-    }
-
-    setFormData(demoCredentials[role])
   }
 
   return (
@@ -82,22 +73,6 @@ const Login = () => {
               create a new account
             </Link>
           </p>
-        </div>
-
-        {/* Demo Login Buttons */}
-        <div className="flex space-x-4">
-          <button
-            onClick={() => handleDemoLogin('admin')}
-            className="flex-1 bg-blue-100 text-blue-700 py-2 px-4 rounded-lg text-sm font-medium hover:bg-blue-200 transition-colors"
-          >
-            Demo Admin
-          </button>
-          <button
-            onClick={() => handleDemoLogin('user')}
-            className="flex-1 bg-green-100 text-green-700 py-2 px-4 rounded-lg text-sm font-medium hover:bg-green-200 transition-colors"
-          >
-            Demo User
-          </button>
         </div>
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
@@ -184,15 +159,6 @@ const Login = () => {
             </button>
           </div>
         </form>
-
-        {/* Demo Credentials */}
-        <div className="mt-6 bg-gray-50 rounded-lg p-4 border border-gray-200">
-          <h3 className="text-sm font-medium text-gray-900 mb-2">Demo Credentials:</h3>
-          <div className="text-xs text-gray-600 space-y-1">
-            <p><strong>Admin:</strong> admin@inventory.com / password</p>
-            <p><strong>User:</strong> user@inventory.com / password</p>
-          </div>
-        </div>
       </div>
     </div>
   )

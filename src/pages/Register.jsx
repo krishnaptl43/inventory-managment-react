@@ -57,11 +57,11 @@ const Register = () => {
       
       if (result.success) {
         navigate('/')
-      } else {
+      } else {        
         setError(result.error)
       }
     } catch (err) {
-      setError('An unexpected error occurred. Please try again.')
+      setError(err || 'An unexpected error occurred. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -114,7 +114,7 @@ const Register = () => {
                 required
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500 focus:border-transparent resize-vertical"
+                className="w-full px-3 py-2 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500 focus:border-transparent resize-vertical"
                 placeholder="Enter your full name"
               />
             </div>
@@ -131,7 +131,7 @@ const Register = () => {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500 focus:border-transparent resize-vertical"
+                className="w-full px-3 py-2 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500 focus:border-transparent resize-vertical"
                 placeholder="Enter your email"
               />
             </div>
@@ -148,7 +148,7 @@ const Register = () => {
                 required
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500 focus:border-transparent resize-vertical"
+                className="w-full px-3 py-2 border text-black border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500 focus:border-transparent resize-vertical"
                 placeholder="Enter your password"
               />
             </div>
@@ -165,7 +165,7 @@ const Register = () => {
                 required
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500 focus:border-transparent resize-vertical"
+                className="w-full px-3 py-2 text-black border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500 focus:border-transparent resize-vertical"
                 placeholder="Confirm your password"
               />
             </div>

@@ -1,4 +1,5 @@
 import { createContext, useState, useContext, useEffect } from 'react'
+import { authAPI } from '../webservice/api'
 
 const AuthContext = createContext()
 
@@ -18,7 +19,7 @@ export const AuthProvider = ({ children }) => {
     // Check if user is logged in on app start
     const token = localStorage.getItem('inventory-token')
     const userData = localStorage.getItem('inventory-user')
-    
+
     if (token && userData) {
       setUser(JSON.parse(userData))
     }
@@ -28,23 +29,16 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       // Simulate API call - Replace with actual backend API
-      if (email === 'admin@inventory.com' && password === 'password') {
-        const userData = {
-          id: 1,
-          name: 'Admin User',
-          email: email,
-          role: 'admin'
-        }
-        
-        const token = 'mock-jwt-token-' + Date.now()
-        
-        localStorage.setItem('inventory-token', token)
-        localStorage.setItem('inventory-user', JSON.stringify(userData))
-        setUser(userData)
-        
-        return { success: true, user: userData }
+
+      const userData = await authAPI.login({ email, password })
+
+      if (userData.success) {
+        localStorage.setItem('inventory-token', userData.token)
+        localStorage.setItem('inventory-user', JSON.stringify(userData.user))
+        setUser(userData.user)
+        return { success: true, user: userData.user }
       } else {
-        return { success: false, error: 'Invalid email or password' }
+        return { success: false, error: userData.message }
       }
     } catch (error) {
       return { success: false, error: 'Login failed. Please try again.' }
@@ -53,23 +47,21 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (userData) => {
     try {
-      // Simulate API call - Replace with actual backend API
-      const newUser = {
-        id: Date.now(),
-        name: userData.name,
-        email: userData.email,
-        role: 'user'
+      const response = await authAPI.register(userData)
+
+      if (response.success) {
+        const { token, user: newUser } = response
+
+        localStorage.setItem('inventory-token', token)
+        localStorage.setItem('inventory-user', JSON.stringify(newUser))
+        setUser(newUser)
+
+        return { success: true, user: newUser }
+      } else {
+        return { success: false, error: response.message }
       }
-      
-      const token = 'mock-jwt-token-' + Date.now()
-      
-      localStorage.setItem('inventory-token', token)
-      localStorage.setItem('inventory-user', JSON.stringify(newUser))
-      setUser(newUser)
-      
-      return { success: true, user: newUser }
     } catch (error) {
-      return { success: false, error: 'Registration failed. Please try again.' }
+      return { success: false, error: error.message || 'Registration failed. Please try again.' }
     }
   }
 
