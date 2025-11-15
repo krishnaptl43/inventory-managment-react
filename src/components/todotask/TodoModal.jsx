@@ -1,42 +1,25 @@
 import { useState, useEffect } from 'react'
+import { twClasses } from '../../utils/twclasses'
 
 const TodoModal = ({ isOpen, onClose, task, onSave }) => {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    priority: 'medium',
-    dueDate: '',
-    status: 'pending'
+    tags: ''
   })
-
-  const priorities = [
-    { value: 'low', label: 'Low', color: 'gray' },
-    { value: 'medium', label: 'Medium', color: 'blue' },
-    { value: 'high', label: 'High', color: 'red' }
-  ]
-
-  const statusOptions = [
-    { value: 'pending', label: 'Pending' },
-    { value: 'in-progress', label: 'In Progress' },
-    { value: 'completed', label: 'Completed' }
-  ]
 
   useEffect(() => {
     if (task) {
       setFormData({
         title: task.title || '',
         description: task.description || '',
-        priority: task.priority || 'medium',
-        dueDate: task.dueDate || '',
-        status: task.status || 'pending'
+        tags: task.tags || 'medium',
       })
     } else {
       setFormData({
         title: '',
         description: '',
-        priority: 'medium',
-        dueDate: '',
-        status: 'pending'
+        tags: ''
       })
     }
   }, [task])
@@ -84,9 +67,23 @@ const TodoModal = ({ isOpen, onClose, task, onSave }) => {
               name="title"
               value={formData.title}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500 focus:border-transparent"
+              className={twClasses.inputField}
               required
               placeholder="Enter task title"
+            />
+          </div>
+
+          {/* Tags */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Tags
+            </label>
+            <input
+              type="text"
+              name="tags"
+              value={formData.tags}
+              onChange={handleChange}
+              className={twClasses.inputField}
             />
           </div>
 
@@ -100,62 +97,8 @@ const TodoModal = ({ isOpen, onClose, task, onSave }) => {
               value={formData.description}
               onChange={handleChange}
               rows="2"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500 focus:border-transparent resize-vertical"
+              className={twClasses.inputField}
               placeholder="Enter task description"
-            />
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            {/* Priority */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Priority
-              </label>
-              <select
-                name="priority"
-                value={formData.priority}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500 focus:border-transparent"
-              >
-                {priorities.map(priority => (
-                  <option key={priority.value} value={priority.value}>
-                    {priority.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Status */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Status
-              </label>
-              <select
-                name="status"
-                value={formData.status}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500 focus:border-transparent"
-              >
-                {statusOptions.map(status => (
-                  <option key={status.value} value={status.value}>
-                    {status.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          {/* Due Date */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Due Date
-            </label>
-            <input
-              type="date"
-              name="dueDate"
-              value={formData.dueDate}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-500 focus:border-transparent"
             />
           </div>
 

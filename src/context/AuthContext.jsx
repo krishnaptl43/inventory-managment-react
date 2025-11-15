@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }) => {
         return { success: false, error: userData.message }
       }
     } catch (error) {
-      return { success: false, error: 'Login failed. Please try again.' }
+      return { success: false, error: error.message || 'Login failed. Please try again.'}
     }
   }
 

@@ -4,6 +4,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     const navigation = [
         { name: 'Dashboard', href: '/', icon: '📊' },
         { name: 'Products', href: '/products', icon: '📦' },
+         { name: 'Expenses', href: '/expenses', icon: '💰' },
         { name: 'Tasks', href: '/tasks', icon: '✅' }, // Add Tasks link
         { name: 'Categories', href: '/categories', icon: '🏷️' },
         { name: 'Settings', href: '/settings', icon: '⚙️' },

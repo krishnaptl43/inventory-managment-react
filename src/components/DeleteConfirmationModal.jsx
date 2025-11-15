@@ -1,4 +1,4 @@
-const DeleteConfirmationModal = ({ isOpen, onClose, onConfirm, product }) => {
+const DeleteConfirmationModal = ({ isOpen, onClose, onConfirm, item, message, title, loading }) => {
   if (!isOpen) return null
 
   return (
@@ -10,13 +10,13 @@ const DeleteConfirmationModal = ({ isOpen, onClose, onConfirm, product }) => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.35 16.5c-.77.833.192 2.5 1.732 2.5z" />
             </svg>
           </div>
-          
+
           <h3 className="text-lg font-semibold text-gray-900 text-center mb-2">
-            Delete Product
+            {title}
           </h3>
-          
+
           <p className="text-gray-600 text-center mb-6">
-            Are you sure you want to delete <strong>"{product?.name}"</strong>? This action cannot be undone.
+            {message}
           </p>
 
           <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
@@ -25,7 +25,7 @@ const DeleteConfirmationModal = ({ isOpen, onClose, onConfirm, product }) => {
                 <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
               </svg>
               <p className="text-sm text-yellow-700">
-                This will permanently remove the product from your inventory.
+                This will permanently remove the Item from your inventory.
               </p>
             </div>
           </div>
@@ -38,10 +38,10 @@ const DeleteConfirmationModal = ({ isOpen, onClose, onConfirm, product }) => {
               Cancel
             </button>
             <button
-              onClick={() => onConfirm(product)}
+              onClick={() => onConfirm(item)}
               className="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
             >
-              Delete Product
+              {loading ? 'Deleting...' : 'Delete'}
             </button>
           </div>
         </div>
