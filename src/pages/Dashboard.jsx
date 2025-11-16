@@ -1,4 +1,4 @@
-import StatsCard from '../components/StatsCard'
+import StatsCard from '../components/todotask/StatsCard'
 import RecentProducts from '../components/RecentProducts'
 import { useNavigate } from 'react-router'
 

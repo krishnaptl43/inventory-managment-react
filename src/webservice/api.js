@@ -1,7 +1,7 @@
 // src/utils/api.js
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 // Create axios instance with base configuration
 const apiClient = axios.create({
@@ -64,7 +64,7 @@ apiClient.interceptors.response.use(
           console.error('API error:', data.message || 'An error occurred');
       }
 
-      throw new Error(data.errors[0]?.message || data.message || `HTTP error! status: ${status}`);
+      throw new Error(data.errors?.message || data.message || `HTTP error! status: ${status}`);
     } else if (error.request) {
       // Network error
       console.error('Network error:', error.message);
@@ -136,9 +136,6 @@ export const taskAPI = {
   updateTaskStatus: (id, status) =>
     api.patch(`/api/tasks/${id}/status`, { status }),
 
-  // Get task statistics
-  getTaskStats: () =>
-    api.get('/api/tasks/stats/overview')
 };
 
 // Auth API functions

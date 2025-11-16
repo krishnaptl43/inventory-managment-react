@@ -9,6 +9,7 @@ import Tasks from './pages/Tasks'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import ProtectedRoute from './routes/ProtectedRoute'
+import Expenses from './pages/Expenses'
 
 function AppContent() {
   const { user } = useAuth()
@@ -27,6 +28,7 @@ function AppContent() {
         }>
           <Route index element={<Dashboard />} />
           <Route path="products" element={<Products />} />
+          <Route path="expenses" element={<Expenses />} />
           <Route path="tasks" element={<Tasks />} />
           <Route path="categories" element={<Categories />} />
           <Route path="settings" element={<Settings />} />
