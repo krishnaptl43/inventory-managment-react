@@ -1,6 +1,0 @@
-{
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "installCommand": "npm ci || npm install",
-  "node": "^20.19.0 || >=22.12.0"
-}
