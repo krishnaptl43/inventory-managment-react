@@ -1,6 +1,6 @@
 {
-  "buildCommand": "npm install && npm run build",
+  "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "installCommand": "npm install",
-  "node": "18"
+  "installCommand": "npm ci || npm install",
+  "node": "^20.19.0 || >=22.12.0"
 }
