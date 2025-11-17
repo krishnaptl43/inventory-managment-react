@@ -1,1 +1,1 @@
-start │ npm run preview
+web: npm run preview
