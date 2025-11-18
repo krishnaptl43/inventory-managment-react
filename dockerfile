@@ -22,6 +22,7 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 # Create nginx configuration for React Router
 RUN echo 'server { \
     listen 80; \
+    listen [::]:80; \
     server_name _; \
     root /usr/share/nginx/html; \
     index index.html; \
