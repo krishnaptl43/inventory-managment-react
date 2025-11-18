@@ -21,7 +21,7 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 
 # Create nginx configuration for React Router
 RUN echo 'server { \
-    listen ${all_proxy}; \
+    listen 80; \
     server_name _; \
     root /usr/share/nginx/html; \
     index index.html; \
@@ -42,6 +42,7 @@ RUN echo 'server { \
     gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript; \
 }' > /etc/nginx/conf.d/default.conf
 
-EXPOSE ${ALL_PROXY}
+EXPOSE $PORT
+
 
 CMD ["nginx", "-g", "daemon off;"]
