@@ -1,7 +1,7 @@
 // src/utils/api.js
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://31.97.207.110';
+const API_URL = import.meta.env.VITE_API_URL;
 
 // Create axios instance with base configuration
 const apiClient = axios.create({
