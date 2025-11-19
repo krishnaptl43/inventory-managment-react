@@ -4,7 +4,6 @@
 FROM node:20-alpine AS builder
 
 WORKDIR /app
-
 COPY package*.json ./
 RUN npm ci --silent
 
@@ -17,18 +16,17 @@ RUN npm run build
 ############################
 FROM nginx:alpine
 
-# Show Vite project in container
 WORKDIR /app
 COPY . .
 
 # Copy built frontend
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-
 ############################
-# NGINX CONFIG (NO ERROR)
+# NGINX CONFIG (COOLIFY SAFE)
 ############################
-RUN cat << 'EOF' > /etc/nginx/conf.d/default.conf
+RUN <<EOF
+cat > /etc/nginx/conf.d/default.conf <<'CONF'
 server {
     listen 80;
     server_name _;
@@ -45,13 +43,15 @@ server {
         try_files $uri $uri/ /index.html;
     }
 }
+CONF
 EOF
 
 
 ############################
-# ENTRYPOINT SCRIPT (NO ERROR)
+# ENTRYPOINT SCRIPT (COOLIFY SAFE)
 ############################
-RUN cat << 'EOF' > /entrypoint.sh
+RUN <<EOF
+cat > /entrypoint.sh <<'SCRIPT'
 #!/bin/sh
 
 echo "Generating env.js ..."
@@ -65,6 +65,7 @@ echo "Generating env.js ..."
 } > /usr/share/nginx/html/env.js
 
 exec "$@"
+SCRIPT
 EOF
 
 RUN chmod +x /entrypoint.sh
@@ -72,5 +73,4 @@ RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
 EXPOSE 80
-
 CMD ["nginx", "-g", "daemon off;"]
