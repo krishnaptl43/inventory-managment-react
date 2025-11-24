@@ -269,6 +269,28 @@ export const expenseAPI = {
     api.get('/api/expenses/reports/monthly', { year, month })
 };
 
+// Task API functions
+export const dcAPI = {
+  // Get all tasks
+  getDcs: (params = {}) =>
+    api.get('/api/dc', params),
+
+  // Get single task
+  getDc: (id) =>
+    api.get(`/api/dc/${id}`),
+  // Create task
+  createDc: (taskData) =>
+    api.post('/api/dc', taskData),
+
+  // Update task
+  updateDc: (id, taskData) =>
+    api.put(`/api/dc/${id}`, taskData),
+  // Delete task
+  deleteDc: (id) =>
+    api.delete(`/api/dc/${id}`),
+
+};
+
 
 // Health check
 export const healthCheck = () =>

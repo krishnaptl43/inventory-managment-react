@@ -3,7 +3,8 @@ import { NavLink } from 'react-router'
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     const navigation = [
         { name: 'Dashboard', href: '/', icon: '📊' },
-        { name: 'Products', href: '/products', icon: '📦' },
+        { name: 'DC', href: '/dc', icon: '📦' },
+        { name: 'Product', href: '/product', icon: '📦' },
          { name: 'Expenses', href: '/expenses', icon: '💰' },
         { name: 'Tasks', href: '/tasks', icon: '✅' }, // Add Tasks link
         { name: 'Categories', href: '/categories', icon: '🏷️' },

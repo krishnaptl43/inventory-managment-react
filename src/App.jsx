@@ -10,6 +10,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import ProtectedRoute from './routes/ProtectedRoute'
 import Expenses from './pages/Expenses'
+import DCManagement from './pages/DcPage'
 
 function AppContent() {
   const { user } = useAuth()
@@ -28,6 +29,7 @@ function AppContent() {
         }>
           <Route index element={<Dashboard />} />
           <Route path="products" element={<Products />} />
+          <Route path="dc" element={<DCManagement />} />
           <Route path="expenses" element={<Expenses />} />
           <Route path="tasks" element={<Tasks />} />
           <Route path="categories" element={<Categories />} />
