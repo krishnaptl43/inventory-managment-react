@@ -1,12 +1,14 @@
-// components/DC/DCManagement.jsx
+// components/DeliveryAgent/DeliveryAgentManagement.jsx
 import { useState, useEffect } from 'react';
-import DCTable from '../components/Dc/DCTable';
-import DCFilter from '../components/Dc/DCFilter';
-import DCForm from '../components/Dc/DCForm';
+import DeliveryAgentTable from '../components/DeliveryAgent/DeliveryAgentTable';
+import DeliveryAgentFilter from '../components/DeliveryAgent/DeliveryAgentFilter';
+import DeliveryAgentForm from '../components/DeliveryAgent/DeliveryAgentForm';
 import DeleteConfirmationModal from '../components/DeleteConfirmationModal';
-import { dcAPI } from '../webservice/api';
+import { dcAPI, deliveryAgentAPI } from '../webservice/api';
 
-const DCManagement = () => {
+
+const DeliveryAgentManagement = () => {
+    const [agents, setAgents] = useState([]);
     const [dcs, setDcs] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
@@ -16,7 +18,8 @@ const DCManagement = () => {
         limit: 10,
         search: '',
         sortBy: 'name',
-        sortOrder: 'asc'
+        sortOrder: 'asc',
+        isActive: 'all'
     });
     const [pagination, setPagination] = useState({
         page: 1,
@@ -26,18 +29,21 @@ const DCManagement = () => {
     });
     const [formOpen, setFormOpen] = useState(false);
     const [deleteOpen, setDeleteOpen] = useState(false);
-    const [selectedDc, setSelectedDc] = useState(null);
+    const [selectedAgent, setSelectedAgent] = useState(null);
 
-    const fetchDCs = async () => {
-        const queryParams = new URLSearchParams(filters);
+    // Fetch delivery agents
+    const fetchAgents = async () => {
+
         try {
+            const queryParams = new URLSearchParams(filters);
+
             setLoading(true)
             setError('')
 
-            const response = await dcAPI.getDcs(queryParams)
+            const response = await deliveryAgentAPI.getAgents(queryParams)
 
             if (response.success) {
-                setDcs(response.data);
+                setAgents(response.data);
                 setPagination(response.pagination);
             }
         } catch (error) {
@@ -48,47 +54,65 @@ const DCManagement = () => {
         }
     };
 
+    // Fetch DCs for dropdown
+    const fetchDCs = async () => {
+        try {
+            setError('')
+            const response = await dcAPI.getDcs()
+
+            if (response.success) {
+                setDcs(response.data);
+            }
+
+        } catch (error) {
+            console.error('Error fetching expenses:', error)
+            setError(error.message)
+        }
+    };
+
     useEffect(() => {
+        fetchAgents();
         fetchDCs();
     }, [filters]);
 
     const handleCreate = () => {
-        setSelectedDc(null);
+        setSelectedAgent(null);
         setFormOpen(true);
     };
 
-    const handleEdit = (dc) => {
-        setSelectedDc(dc);
+    const handleEdit = (agent) => {
+        setSelectedAgent(agent);
         setFormOpen(true);
     };
 
-    const handleDelete = (dc) => {
-        setSelectedDc(dc);
+    const handleDelete = (agent) => {
+        setSelectedAgent(agent);
         setDeleteOpen(true);
     };
 
     const handleSubmit = async (formData) => {
+
         try {
             setLoading(true)
             setError('')
 
             let response
 
-            if (selectedDc) {
-                // Update existing expense
-                response = await dcAPI.updateDc(selectedDc._id, formData)
+            if (selectedAgent) {
+                // Update existing agent
+                response = await deliveryAgentAPI.updateAgent(selectedAgent._id, formData)
             } else {
-                // Add new expense
-                response = await dcAPI.createDc(formData)
+                // Add new agent
+                response = await deliveryAgentAPI.createAgent(formData)
             }
 
             if (response.success) {
-                setSuccess(`DC ${selectedDc ? 'updated' : 'created'} successfully`);
+                setSuccess(`Delivery agent ${selectedAgent ? 'updated' : 'created'} successfully`);
                 setFormOpen(false);
-                fetchDCs();
+                fetchAgents();
             }
         } catch (error) {
-            console.error('Error saving Dc:', error)
+            console.error('Error saving Delivery agent:', error)
             setError(error.message)
         } finally {
             setLoading(false)
@@ -96,19 +120,20 @@ const DCManagement = () => {
     };
 
     const confirmDelete = async () => {
+
         try {
             setLoading(true)
             setError('')
 
-            const response = await dcAPI.deleteDc(selectedDc._id)
+            const response = await deliveryAgentAPI.deleteAgent(selectedAgent._id)
 
             if (response.success) {
-                setSuccess('DC deleted successfully');
+                setSuccess('Delivery agent deleted successfully');
                 setDeleteOpen(false);
-                fetchDCs();
+                fetchAgents();
             }
         } catch (error) {
-            console.error('Error deleting expense:', error)
+            console.error('Error deleting agent:', error)
             setError(error.message)
         } finally {
             setLoading(false)
@@ -123,17 +148,32 @@ const DCManagement = () => {
         setFilters({ ...filters, page: newPage });
     };
 
+    const toggleAgentStatus = async (agent) => {
+
+        try {
+            setError('')
+
+            const response = await deliveryAgentAPI.updateAgentStatus(agent._id, !agent.isActive)
+
+            if (response.success) {
+                setSuccess(`Agent ${!agent.isActive ? 'activated' : 'deactivated'} successfully`);
+                fetchAgents();
+            }
+        } catch (error) {
+            console.error('Error deleting expense:', error)
+            setError(error.message)
+        }
+    };
+
     return (
         <>
-            {/* Page Header */}
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8">
                 {/* Header */}
                 <div className="mb-6">
-                    <h1 className="text-2xl font-bold text-gray-900">Distribution Centers</h1>
-                    <p className="text-gray-600">Manage your distribution centers</p>
+                    <h1 className="text-2xl font-bold text-gray-900">Delivery Agents</h1>
+                    <p className="text-gray-600">Manage your delivery agents and their assignments</p>
                 </div>
 
-                {/* Add Distribution Center Button - Main Action */}
                 <button
                     onClick={handleCreate}
                     className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors flex items-center gap-2"
@@ -141,8 +181,9 @@ const DCManagement = () => {
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
                     </svg>
-                    Add DC
+                    Add Agent
                 </button>
+
             </div>
 
             {/* Alerts */}
@@ -197,7 +238,7 @@ const DCManagement = () => {
             )}
 
             {/* Filters and Create Button */}
-            <DCFilter
+            <DeliveryAgentFilter
                 filters={filters}
                 onFilterChange={handleFilterChange}
             />
@@ -209,24 +250,24 @@ const DCManagement = () => {
                         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
                     </div>
                 ) : (
-                    <DCTable
-                        dcs={dcs}
+                    <DeliveryAgentTable
+                        agents={agents}
                         onEdit={handleEdit}
                         onDelete={handleDelete}
+                        onToggleStatus={toggleAgentStatus}
                         pagination={pagination}
                         onPageChange={handlePageChange}
-                        loading={loading}
                     />
                 )}
             </div>
 
             {/* Forms */}
             {formOpen && (
-                <DCForm
-                    dc={selectedDc}
+                <DeliveryAgentForm
+                    agent={selectedAgent}
+                    dcs={dcs}
                     onSubmit={handleSubmit}
                     onClose={() => setFormOpen(false)}
-                    loading={loading}
                 />
             )}
 
@@ -235,18 +276,18 @@ const DCManagement = () => {
                     isOpen={deleteOpen}
                     onClose={() => {
                         setDeleteOpen(false)
-                        setSelectedDc(null)
+                        setSelectedAgent(null)
                         setError('')
                     }}
                     onConfirm={confirmDelete}
-                    item={selectedDc}
+                    item={selectedAgent}
                     loading={loading}
-                    title="Delete DC"
-                    message="Are you sure you want to delete this DC? This action cannot be undone."
+                    title="Delete Agent"
+                    message="Are you sure you want to delete this agent? This action cannot be undone."
                 />
             )}
         </>
     );
 };
 
-export default DCManagement;
+export default DeliveryAgentManagement;

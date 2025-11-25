@@ -210,6 +210,10 @@ export const deliveryAgentAPI = {
   deleteAgent: (id) =>
     api.delete(`/api/delivery-agents/${id}`),
 
+  // Update agent status
+  updateAgentStatus: (id, status) =>
+    api.patch(`/api/delivery-agents/${id}/status`, { status }),
+
   // Get agent statistics
   getAgentStats: (params = {}) =>
     api.get('/api/delivery-agents/stats/overview', params),

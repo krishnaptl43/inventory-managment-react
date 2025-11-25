@@ -11,6 +11,8 @@ import Register from './pages/Register'
 import ProtectedRoute from './routes/ProtectedRoute'
 import Expenses from './pages/Expenses'
 import DCManagement from './pages/DcPage'
+import DeliveryAgentManagement from './pages/DeliveryAgentManagement'
+import AgentDashboard from './pages/AgentDashboard'
 
 function AppContent() {
   const { user } = useAuth()
@@ -29,6 +31,8 @@ function AppContent() {
         }>
           <Route index element={<Dashboard />} />
           <Route path="products" element={<Products />} />
+          <Route path="delivery-agents" element={<DeliveryAgentManagement />} />
+          <Route path="agent-analytics" element={<AgentDashboard />} />
           <Route path="dc" element={<DCManagement />} />
           <Route path="expenses" element={<Expenses />} />
           <Route path="tasks" element={<Tasks />} />
