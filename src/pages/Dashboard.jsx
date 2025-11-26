@@ -1,5 +1,4 @@
 import StatsCard from '../components/todotask/StatsCard'
-import RecentProducts from '../components/RecentProducts'
 import { useNavigate } from 'react-router'
 
 const Dashboard = () => {
@@ -65,11 +64,6 @@ const Dashboard = () => {
                         </button>
                     </div>
                 </div>
-            </div>
-
-            {/* Recent Products */}
-            <div className="mt-6 lg:mt-8">
-                <RecentProducts />
             </div>
         </div>
     )

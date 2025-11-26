@@ -2,8 +2,6 @@ import { Routes, Route, Navigate } from 'react-router'
 import { AuthProvider, useAuth } from './context/AuthContext'
 import Layout from './components/Layout'
 import Dashboard from './pages/Dashboard'
-import Products from './pages/Products'
-import Categories from './pages/Categories'
 import Settings from './pages/Settings'
 import Tasks from './pages/Tasks'
 import Login from './pages/Login'
@@ -13,6 +11,7 @@ import Expenses from './pages/Expenses'
 import DCManagement from './pages/DcPage'
 import DeliveryAgentManagement from './pages/DeliveryAgentManagement'
 import AgentDashboard from './pages/AgentDashboard'
+import CashCollectionManagement from './pages/CashCollectionManagement'
 
 function AppContent() {
   const { user } = useAuth()
@@ -30,13 +29,12 @@ function AppContent() {
           </ProtectedRoute>
         }>
           <Route index element={<Dashboard />} />
-          <Route path="products" element={<Products />} />
+          <Route path="cash-collections" element={<CashCollectionManagement />} />
           <Route path="delivery-agents" element={<DeliveryAgentManagement />} />
           <Route path="agent-analytics" element={<AgentDashboard />} />
           <Route path="dc" element={<DCManagement />} />
           <Route path="expenses" element={<Expenses />} />
           <Route path="tasks" element={<Tasks />} />
-          <Route path="categories" element={<Categories />} />
           <Route path="settings" element={<Settings />} />
         </Route>
         {/* Catch all route */}

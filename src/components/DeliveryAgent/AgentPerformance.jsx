@@ -81,7 +81,7 @@ const AgentPerformance = ({ dateRange }) => {
                         <select
                             value={selectedAgent}
                             onChange={handleAgentChange}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
                             <option value="">Choose an agent...</option>
                             {agents.map((agent) => (
@@ -139,7 +139,7 @@ const AgentPerformance = ({ dateRange }) => {
                                 <div className="ml-4">
                                     <p className="text-sm font-medium text-gray-500">Total Collections</p>
                                     <p className="text-2xl font-semibold text-gray-900">
-                                        {performance.cashPerformance[0]?.count || 0}
+                                        {performance.performance.cashAmount || 0}
                                     </p>
                                 </div>
                             </div>
@@ -153,7 +153,7 @@ const AgentPerformance = ({ dateRange }) => {
                                 <div className="ml-4">
                                     <p className="text-sm font-medium text-gray-500">Total Amount Collected</p>
                                     <p className="text-2xl font-semibold text-gray-900">
-                                        ₹{(performance.cashPerformance[0]?.totalAmount || 0).toLocaleString()}
+                                        ₹{(performance.performance.totalAmount || 0).toLocaleString()}
                                     </p>
                                 </div>
                             </div>
@@ -167,9 +167,7 @@ const AgentPerformance = ({ dateRange }) => {
                                 <div className="ml-4">
                                     <p className="text-sm font-medium text-gray-500">Average per Collection</p>
                                     <p className="text-2xl font-semibold text-gray-900">
-                                        ₹{performance.cashPerformance[0]?.count > 0
-                                            ? Math.round(performance.cashPerformance[0].totalAmount / performance.cashPerformance[0].count).toLocaleString()
-                                            : '0'}
+                                        ₹{performance.performance.averageAmount}
                                     </p>
                                 </div>
                             </div>
@@ -247,13 +245,13 @@ const AgentPerformance = ({ dateRange }) => {
                             <div className="bg-white p-4 rounded-lg">
                                 <p className="text-sm font-medium text-gray-500">Collections Completed</p>
                                 <p className="text-2xl font-semibold text-gray-900">
-                                    {performance.cashPerformance[0]?.count || 0}
+                                    {performance.performance.cashAmount || 0}
                                 </p>
                             </div>
                             <div className="bg-white p-4 rounded-lg">
                                 <p className="text-sm font-medium text-gray-500">Total Revenue Generated</p>
                                 <p className="text-2xl font-semibold text-gray-900">
-                                    ₹{(performance.cashPerformance[0]?.totalAmount || 0).toLocaleString()}
+                                    ₹{(performance.performance.totalAmount || 0).toLocaleString()}
                                 </p>
                             </div>
                         </div>

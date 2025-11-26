@@ -44,7 +44,7 @@ const AgentDashboard = () => {
                                 name="startDate"
                                 value={dateRange.startDate}
                                 onChange={handleDateChange}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
                         </div>
                         <div>
@@ -56,7 +56,7 @@ const AgentDashboard = () => {
                                 name="endDate"
                                 value={dateRange.endDate}
                                 onChange={handleDateChange}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
                         </div>
                     </div>

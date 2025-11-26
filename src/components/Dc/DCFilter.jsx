@@ -43,7 +43,7 @@ const DCFilter = ({ filters, onFilterChange }) => {
           <select
             value={filters.sortBy}
             onChange={handleSortChange}
-            className={`${twClasses.inputField} pl-10`}
+            className={twClasses.inputField}
           >
             <option value="name">Name</option>
             <option value="createdAt">Date Created</option>
@@ -54,7 +54,7 @@ const DCFilter = ({ filters, onFilterChange }) => {
           <select
             value={filters.sortOrder}
             onChange={handleOrderChange}
-            className={`${twClasses.inputField} pl-10`}
+            className={twClasses.inputField}
           >
             <option value="asc">Ascending</option>
             <option value="desc">Descending</option>
@@ -64,7 +64,7 @@ const DCFilter = ({ filters, onFilterChange }) => {
           <select
             value={filters.limit}
             onChange={handleLimitChange}
-            className={`${twClasses.inputField} pl-10`}
+            className={twClasses.inputField}
           >
             <option value="5">5 per page</option>
             <option value="10">10 per page</option>

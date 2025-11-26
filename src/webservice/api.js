@@ -234,8 +234,8 @@ export const cashCollectionAPI = {
     api.post('/api/cash-collections', collectionData),
 
   // Get daily collection report
-  getDailyCollectionReport: (date) =>
-    api.get('/api/cash-collections/reports/daily', { date }),
+  getDailyCollectionReport: (params = {}) =>
+    api.get('/api/cash-collections/reports/daily', params),
 
   // Get collection statistics
   getCollectionStats: (params = {}) =>

@@ -79,7 +79,7 @@ const Header = ({ setSidebarOpen }) => {
                 alt=""
               />
               <div className="hidden md:block text-left">
-                <p className="text-sm font-medium text-gray-700">John Doe</p>
+                <p className="text-sm font-medium text-gray-700">{user?.name}</p>
                 <p className="text-xs text-gray-500">Admin</p>
               </div>
             </button>

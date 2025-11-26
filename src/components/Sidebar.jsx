@@ -1,15 +1,18 @@
 import { NavLink } from 'react-router'
+import { useAuth } from '../context/AuthContext';
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
+
+    const { user} = useAuth()
+
     const navigation = [
         { name: 'Dashboard', href: '/', icon: '📊' },
+        { name: 'Cash Collection', href: '/cash-collections', icon: '💰' },
         { name: 'DC', href: '/dc', icon: '🏢' },
         { name: 'Delivery Agent', href: '/delivery-agents', icon: '🚚' },
         { name: 'Agent Analytics', href: '/agent-analytics', icon: '📈' },
-        { name: 'Product', href: '/product', icon: '📦' },
         { name: 'Expenses', href: '/expenses', icon: '💰' },
         { name: 'Tasks', href: '/tasks', icon: '✅' },
-        { name: 'Categories', href: '/categories', icon: '🏷️' },
         { name: 'Settings', href: '/settings', icon: '⚙️' },
     ];
 
@@ -118,7 +121,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                         alt=""
                                     />
                                     <div className="ml-3">
-                                        <p className="text-sm font-medium text-gray-700">John Doe</p>
+                                        <p className="text-sm font-medium text-gray-700">{user?.name}</p>
                                         <p className="text-xs font-medium text-gray-500">Admin</p>
                                     </div>
                                 </div>
