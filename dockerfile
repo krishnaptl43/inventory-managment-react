@@ -7,6 +7,11 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci --silent
 
+
+# Accept build-time env variables (from Coolify)
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
+
 COPY . .
 RUN npm run build
 
@@ -29,7 +34,7 @@ RUN <<EOF
 cat > /etc/nginx/conf.d/default.conf <<'CONF'
 server {
     listen 80;
-    server_name _;
+    server_name inventory.sbshealthcare.com;
 
     root /usr/share/nginx/html;
     index index.html;
