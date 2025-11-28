@@ -170,7 +170,7 @@ const DeliveryAgentForm = ({ loading ,agent, dcs, onSubmit, onClose }) => {
                   <option value="">Select DC</option>
                   {dcs.map((dc) => (
                     <option key={dc._id} value={dc._id}>
-                      {dc.name}
+                      {dc.dc_name}
                     </option>
                   ))}
                 </select>

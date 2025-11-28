@@ -1,5 +1,4 @@
 // components/CashCollection/CashCollectionTable.jsx
-import React from 'react';
 
 const CashCollectionTable = ({ collections, pagination, onPageChange }) => {
   const formatDate = (dateString) => {
@@ -65,11 +64,19 @@ const CashCollectionTable = ({ collections, pagination, onPageChange }) => {
               </td>
               <td className="px-6 py-4">
                 <div className="text-sm font-medium text-gray-900">
+                  COD: {formatCurrency(collection.cod_amount)}
+                </div>
+                <div className="text-sm font-medium text-green-900">
                   Total: {formatCurrency(collection.total_amount)}
                 </div>
                 {collection.pay_amount > 0 && (
                   <div className="text-sm text-blue-600">
-                    Paid: {formatCurrency(collection.pay_amount)}
+                    Received  : {formatCurrency(collection.pay_amount)}
+                  </div>
+                )}
+                {collection.due_amount > 0 && (
+                  <div className="text-sm text-red-600">
+                    Due: {formatCurrency(collection.due_amount)}
                   </div>
                 )}
                 <div className="text-xs text-gray-500 mt-1">
@@ -133,22 +140,20 @@ const CashCollectionTable = ({ collections, pagination, onPageChange }) => {
               <button
                 onClick={() => onPageChange(pagination.page - 1)}
                 disabled={pagination.page === 1}
-                className={`px-3 py-2 rounded-md text-sm font-medium ${
-                  pagination.page === 1
-                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                    : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300'
-                }`}
+                className={`px-3 py-2 rounded-md text-sm font-medium ${pagination.page === 1
+                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                  : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300'
+                  }`}
               >
                 Previous
               </button>
               <button
                 onClick={() => onPageChange(pagination.page + 1)}
                 disabled={pagination.page === pagination.pages}
-                className={`px-3 py-2 rounded-md text-sm font-medium ${
-                  pagination.page === pagination.pages
-                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                    : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300'
-                }`}
+                className={`px-3 py-2 rounded-md text-sm font-medium ${pagination.page === pagination.pages
+                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                  : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300'
+                  }`}
               >
                 Next
               </button>

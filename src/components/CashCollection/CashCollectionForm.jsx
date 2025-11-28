@@ -1,7 +1,7 @@
 // components/CashCollection/CashCollectionForm.jsx
 import { useState } from 'react';
 
-const CashCollectionForm = ({ agents, dc, onSubmit, onClose,loading }) => {
+const CashCollectionForm = ({ agents, dc, onSubmit, onClose, loading }) => {
   const [formData, setFormData] = useState({
     deliveryAgent: '',
     delivered_parsal: '',
@@ -9,6 +9,8 @@ const CashCollectionForm = ({ agents, dc, onSubmit, onClose,loading }) => {
     total_amount: '',
     cash_amount: '',
     online_amount: '',
+    cod_amount: '',
+    due_amount: '',
     pay_amount: '',
     collectionDate: new Date().toISOString().split('T')[0],
     notes: ''
@@ -32,6 +34,7 @@ const CashCollectionForm = ({ agents, dc, onSubmit, onClose,loading }) => {
     if (name === 'cash_amount' || name === 'online_amount') {
       const cash = name === 'cash_amount' ? parseInt(value) || 0 : parseInt(formData.cash_amount) || 0;
       const online = name === 'online_amount' ? parseInt(value) || 0 : parseInt(formData.online_amount) || 0;
+
       setFormData(prev => ({
         ...prev,
         total_amount: (cash + online).toString()
@@ -77,7 +80,9 @@ const CashCollectionForm = ({ agents, dc, onSubmit, onClose,loading }) => {
         total_amount: parseInt(formData.total_amount),
         cash_amount: parseInt(formData.cash_amount) || 0,
         online_amount: parseInt(formData.online_amount) || 0,
-        pay_amount: parseInt(formData.pay_amount) || 0
+        pay_amount: parseInt(formData.pay_amount) || 0,
+        cod_amount: parseInt(formData.cod_amount) || 0,
+        due_amount: parseInt(formData.due_amount) || 0,
       };
       onSubmit(submissionData);
     }
@@ -177,7 +182,21 @@ const CashCollectionForm = ({ agents, dc, onSubmit, onClose,loading }) => {
           </div>
 
           {/* Amount Details */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                COD Amount (₹)
+              </label>
+              <input
+                type="number"
+                name="cod_amount"
+                value={formData.cod_amount}
+                onChange={handleChange}
+                min="0"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="0.00"
+              />
+            </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Cash Amount (₹)
@@ -231,7 +250,21 @@ const CashCollectionForm = ({ agents, dc, onSubmit, onClose,loading }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Amount Paid (₹)
+                Due Amount (₹)
+              </label>
+              <input
+                type="number"
+                name="due_amount"
+                value={formData.due_amount}
+                onChange={handleChange}
+                min="0"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="0.00"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Amount Received (₹)
               </label>
               <input
                 type="number"
@@ -280,8 +313,11 @@ const CashCollectionForm = ({ agents, dc, onSubmit, onClose,loading }) => {
               <div className="text-blue-700">Total Amount:</div>
               <div className="text-blue-900 font-medium">₹{formData.total_amount || '0.00'}</div>
 
-              <div className="text-blue-700">Amount Paid:</div>
+              <div className="text-blue-700">Amount Received:</div>
               <div className="text-blue-900 font-medium">₹{formData.pay_amount || '0.00'}</div>
+
+              <div className="text-blue-700">Due Amount:</div>
+              <div className="text-blue-900 font-medium">₹{formData.due_amount || '0.00'}</div>
             </div>
           </div>
 

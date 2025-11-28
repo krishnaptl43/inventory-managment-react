@@ -66,6 +66,7 @@ const CashCollectionFilter = ({ filters, agents, onFilterChange }) => {
           >
             <option value="collectionDate">Collection Date</option>
             <option value="total_amount">Total Amount</option>
+            <option value="due_amount">Due Amount</option>
             <option value="createdAt">Created Date</option>
           </select>
         </div>

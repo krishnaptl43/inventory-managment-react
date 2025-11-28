@@ -137,9 +137,23 @@ const AgentPerformance = ({ dateRange }) => {
                                     <span className="text-2xl">📦</span>
                                 </div>
                                 <div className="ml-4">
-                                    <p className="text-sm font-medium text-gray-500">Total Collections</p>
+                                    <p className="text-sm font-medium text-gray-500">Total Cash Collections</p>
                                     <p className="text-2xl font-semibold text-gray-900">
                                         {performance.performance.cashAmount || 0}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="bg-white p-6 rounded-lg shadow">
+                            <div className="flex items-center">
+                                <div className="shrink-0">
+                                    <span className="text-2xl">💳</span>
+                                </div>
+                                <div className="ml-4">
+                                    <p className="text-sm font-medium text-gray-500">Total Online Collection</p>
+                                    <p className="text-2xl font-semibold text-gray-900">
+                                        ₹{performance.performance.onlineAmount || 0}
                                     </p>
                                 </div>
                             </div>
@@ -154,20 +168,6 @@ const AgentPerformance = ({ dateRange }) => {
                                     <p className="text-sm font-medium text-gray-500">Total Amount Collected</p>
                                     <p className="text-2xl font-semibold text-gray-900">
                                         ₹{(performance.performance.totalAmount || 0).toLocaleString()}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="bg-white p-6 rounded-lg shadow">
-                            <div className="flex items-center">
-                                <div className="shrink-0">
-                                    <span className="text-2xl">🎯</span>
-                                </div>
-                                <div className="ml-4">
-                                    <p className="text-sm font-medium text-gray-500">Average per Collection</p>
-                                    <p className="text-2xl font-semibold text-gray-900">
-                                        ₹{performance.performance.averageAmount}
                                     </p>
                                 </div>
                             </div>
@@ -243,15 +243,45 @@ const AgentPerformance = ({ dateRange }) => {
 
                         <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div className="bg-white p-4 rounded-lg">
-                                <p className="text-sm font-medium text-gray-500">Collections Completed</p>
+                                <p className="text-sm font-medium text-gray-500">Total Collections</p>
                                 <p className="text-2xl font-semibold text-gray-900">
-                                    {performance.performance.cashAmount || 0}
+                                    {performance.performance.totalCollections || 0}
                                 </p>
                             </div>
                             <div className="bg-white p-4 rounded-lg">
-                                <p className="text-sm font-medium text-gray-500">Total Revenue Generated</p>
+                                <p className="text-sm font-medium text-gray-500">Total Delivered Parcels</p>
                                 <p className="text-2xl font-semibold text-gray-900">
-                                    ₹{(performance.performance.totalAmount || 0).toLocaleString()}
+                                    {(performance.performance.totalDeliveredParsals || 0).toLocaleString()}
+                                </p>
+                            </div>
+                             <div className="bg-white p-4 rounded-lg">
+                                <p className="text-sm font-medium text-gray-500">Total Pickup Parcels</p>
+                                <p className="text-2xl font-semibold text-gray-900">
+                                    {(performance.performance.totalPickupParsals || 0).toLocaleString()}
+                                </p>
+                            </div>
+                            <div className="bg-white p-4 rounded-lg">
+                                <p className="text-sm font-medium text-gray-500">Total Working Days</p>
+                                <p className="text-2xl font-semibold text-gray-900">
+                                    {(performance.summary.totalWorkingDays || 0).toLocaleString()}
+                                </p>
+                            </div>
+                             <div className="bg-white p-4 rounded-lg">
+                                <p className="text-sm font-medium text-gray-500">Efficiency Score</p>
+                                <p className="text-2xl font-semibold text-gray-900">
+                                    {(performance.summary.efficiencyScore || 0).toLocaleString()}%
+                                </p>
+                            </div>
+                            <div className="bg-white p-4 rounded-lg">
+                                <p className="text-sm font-medium text-gray-500">Total Due Amount</p>
+                                <p className="text-2xl font-semibold text-gray-900">
+                                    ₹{(performance.performance.dueAmount || 0).toLocaleString()}
+                                </p>
+                            </div>
+                             <div className="bg-white p-4 rounded-lg">
+                                <p className="text-sm font-medium text-gray-500">Total Received Amount</p>
+                                <p className="text-2xl font-semibold text-gray-900">
+                                    ₹{(performance.performance.receivedAmount || 0).toLocaleString()}
                                 </p>
                             </div>
                         </div>

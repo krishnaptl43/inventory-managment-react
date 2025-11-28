@@ -127,10 +127,22 @@ const CashCollectionReports = ({ dc }) => {
                   {dailyReport.dayTotal.totalCollections}
                 </div>
               </div>
+              <div className="bg-orange-50 p-4 rounded-lg border border-orange-200">
+                <div className="text-sm font-medium text-orange-800">COD Amount</div>
+                <div className="text-2xl font-semibold text-orange-900">
+                  {formatCurrency(dailyReport.dayTotal.codAmount)}
+                </div>
+              </div>
               <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
                 <div className="text-sm font-medium text-blue-800">Total Amount</div>
                 <div className="text-2xl font-semibold text-blue-900">
                   {formatCurrency(dailyReport.dayTotal.totalAmount)}
+                </div>
+              </div>
+              <div className="bg-pink-50 p-4 rounded-lg border border-pink-200">
+                <div className="text-sm font-medium text-pink-800">Received Amount</div>
+                <div className="text-2xl font-semibold text-pink-900">
+                  {formatCurrency(dailyReport.dayTotal.receivedAmount)}
                 </div>
               </div>
               <div className="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
@@ -145,6 +157,12 @@ const CashCollectionReports = ({ dc }) => {
                   {formatCurrency(dailyReport.dayTotal.digitalAmount)}
                 </div>
               </div>
+              <div className="bg-red-50 p-4 rounded-lg border border-red-200">
+                <div className="text-sm font-medium text-red-800">Due Amount</div>
+                <div className="text-2xl font-semibold text-red-900">
+                  {formatCurrency(dailyReport.dayTotal.dueAmount)}
+                </div>
+              </div>
             </div>
 
             {/* Agent-wise Breakdown */}
@@ -156,9 +174,10 @@ const CashCollectionReports = ({ dc }) => {
                     <tr>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Agent</th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Collections</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Total Amount</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Cash</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Digital</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">COD/Total Amount</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Cash/Online</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Received Amount</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Due Amount</th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
@@ -166,9 +185,10 @@ const CashCollectionReports = ({ dc }) => {
                       <tr key={index}>
                         <td className="px-6 py-4 text-sm font-medium text-gray-900">{agent.agentName}</td>
                         <td className="px-6 py-4 text-sm text-gray-900">{agent.totalCollections}</td>
-                        <td className="px-6 py-4 text-sm text-gray-900">{formatCurrency(agent.totalAmount)}</td>
-                        <td className="px-6 py-4 text-sm text-gray-900">{formatCurrency(agent.cashAmount)}</td>
-                        <td className="px-6 py-4 text-sm text-gray-900">{formatCurrency(agent.digitalAmount)}</td>
+                        <td className="px-6 py-4 text-sm text-gray-900">{formatCurrency(agent.codAmount) + "/" + formatCurrency(agent.totalAmount)}</td>
+                        <td className="px-6 py-4 text-sm text-gray-900">{formatCurrency(agent.cashAmount) + "/" + formatCurrency(agent.digitalAmount)}</td>
+                        <td className="px-6 py-4 text-sm text-gray-900">{formatCurrency(agent.receivedAmount)}</td>
+                        <td className="px-6 py-4 text-sm text-red-900">{formatCurrency(agent.dueAmount)}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -218,6 +238,10 @@ const CashCollectionReports = ({ dc }) => {
                 <div className="text-2xl font-semibold text-gray-900">{stats.totalCollections}</div>
               </div>
               <div className="bg-gray-50 p-4 rounded-lg">
+                <div className="text-sm font-medium text-gray-500">Total COD</div>
+                <div className="text-2xl font-semibold text-gray-900">{formatCurrency(stats.codAmount)}</div>
+              </div>
+              <div className="bg-gray-50 p-4 rounded-lg">
                 <div className="text-sm font-medium text-gray-500">Total Revenue</div>
                 <div className="text-2xl font-semibold text-gray-900">{formatCurrency(stats.totalAmount)}</div>
               </div>
@@ -228,6 +252,14 @@ const CashCollectionReports = ({ dc }) => {
               <div className="bg-gray-50 p-4 rounded-lg">
                 <div className="text-sm font-medium text-gray-500">Digital Collected</div>
                 <div className="text-2xl font-semibold text-gray-900">{formatCurrency(stats.digitalAmount)}</div>
+              </div>
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <div className="text-sm font-medium text-gray-500">Total Received</div>
+                <div className="text-2xl font-semibold text-gray-900">{formatCurrency(stats.receivedAmount)}</div>
+              </div>
+              <div className="bg-red-50 p-4 rounded-lg">
+                <div className="text-sm font-medium text-red-800">Due Amount</div>
+                <div className="text-2xl font-semibold text-red-900">{formatCurrency(stats.dueAmount)}</div>
               </div>
             </div>
 
@@ -241,7 +273,10 @@ const CashCollectionReports = ({ dc }) => {
                       <tr>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Collections</th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Amount</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">COD/Total Amount</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Cash/Online</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Received Amount</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Due Amount</th>
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
@@ -249,7 +284,10 @@ const CashCollectionReports = ({ dc }) => {
                         <tr key={index}>
                           <td className="px-6 py-4 text-sm text-gray-900">{day._id}</td>
                           <td className="px-6 py-4 text-sm text-gray-900">{day.collectionCount}</td>
-                          <td className="px-6 py-4 text-sm text-gray-900">{formatCurrency(day.totalAmount)}</td>
+                          <td className="px-6 py-4 text-sm text-gray-900">{formatCurrency(day.codAmount) + "/" + formatCurrency(day.totalAmount)}</td>
+                          <td className="px-6 py-4 text-sm text-gray-900">{formatCurrency(day.cashAmount) + "/" + formatCurrency(day.digitalAmount)}</td>
+                          <td className="px-6 py-4 text-sm text-gray-900">{formatCurrency(day.receivedAmount)}</td>
+                          <td className="px-6 py-4 text-sm text-red-900">{formatCurrency(day.dueAmount)}</td>
                         </tr>
                       ))}
                     </tbody>

@@ -119,6 +119,49 @@ const AgentStats = ({ dateRange }) => {
                         </div>
                     </div>
                 </div>
+
+                <div className="bg-white p-6 rounded-lg shadow">
+                    <div className="flex items-center">
+                        <div className="shrink-0">
+                            <span className="text-2xl">💵</span>
+                        </div>
+                        <div className="ml-4">
+                            <p className="text-sm font-medium text-gray-500">Online Collected</p>
+                            <p className="text-2xl font-semibold text-gray-900">
+                                ₹{stats.overall.totalOnlineAmount?.toLocaleString() || '0'}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="bg-white p-6 rounded-lg shadow">
+                    <div className="flex items-center">
+                        <div className="shrink-0">
+                            <span className="text-2xl">💵</span>
+                        </div>
+                        <div className="ml-4">
+                            <p className="text-sm font-medium text-gray-500">Overall Due Amount </p>
+                            <p className="text-2xl font-semibold text-gray-900">
+                                ₹{stats.overall.totalDueAmount?.toLocaleString() || '0'}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="bg-white p-6 rounded-lg shadow">
+                    <div className="flex items-center">
+                        <div className="shrink-0">
+                            <span className="text-2xl">💵</span>
+                        </div>
+                        <div className="ml-4">
+                            <p className="text-sm font-medium text-gray-500">Received Amount </p>
+                            <p className="text-2xl font-semibold text-gray-900">
+                                ₹{stats.overall.receivedAmount?.toLocaleString() || '0'}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
             {/* Agent-wise Statistics */}
@@ -152,6 +195,12 @@ const AgentStats = ({ dateRange }) => {
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Digital Amount
                                 </th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Received Amount
+                                </th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Due Amount
+                                </th>
                             </tr>
                         </thead>
                         <tbody className="bg-white divide-y divide-gray-200">
@@ -180,6 +229,12 @@ const AgentStats = ({ dateRange }) => {
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                             ₹{(agentStat.digitalAmount || 0).toLocaleString()}
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                            ₹{(agentStat.receivedAmount || 0).toLocaleString()}
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                            ₹{(agentStat.dueAmount || 0).toLocaleString()}
                                         </td>
                                     </tr>
                                 ))
